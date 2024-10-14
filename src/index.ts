@@ -1,12 +1,15 @@
-import { getPost } from "./async";
+import express from "express";
+import cors from "cors";
+import morgan from "morgan";
+import { PORT } from "./config";
+import routes from "./controllers/index.controller";
 
-/**
- * Suma dos números
- * @param a 
- * @param b 
- */
-export const sum = (a: number, b: number): number => {
-    return a + b;
-}
+const app = express();
+const port = PORT;
+app.use(cors());
+app.use(morgan("dev"));
+routes(app);
 
-// getPost(0).then(console.log)
+app.listen(port, () => {
+  console.log("[SERVER]: Running on port " + port);
+});
